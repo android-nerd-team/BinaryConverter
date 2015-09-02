@@ -64,7 +64,7 @@ public class ResultFragment extends Fragment {
         if (getArguments() != null) {
             inputText = getArguments().getString(ARG_PARAM);
             if (inputText == null)
-                inputText = "Null döndü.";
+                inputText = "Null dï¿½ndï¿½.";
             Log.i("ResultFr", "inputText belirlendi");
         }
     }
@@ -119,27 +119,11 @@ public class ResultFragment extends Fragment {
             if (words[i].replaceAll("\\D", "").length() >= 8
                     && (words[i].contains("010") || words[i].contains("011"))) {
 
-                int wordLength;
+                int wordLength = words[i].length();
                 boolean letterFound = false;
 
                 //TODO : Fix this Loop
-                for (wordLength = words[i].length(); wordLength >= 8; wordLength-=8)
-                {
-                    for (String key : binaries.keySet()) {
-                        boolean check =words[i].contains(key.toString());
-                        tempWord = words[i];
-                        if (check) {
-                            changedWord = words[i].replace(key.toString(), binaries.get(key).toString());
-                            wordLength -= 8;
-                            letterFound = true;
-                        }
-                        if (letterFound) {
-                            break;
-                        } else {
-                            words[i] = tempWord;
-                        }
-                    }
-                }
+                detectConvertAdd(wordLength,i,letterFound,words,binaries,tempWord,changedWord);
                 outputText.add(changedWord);
             } else {
                 outputText.add(words[i]);
@@ -168,4 +152,24 @@ public class ResultFragment extends Fragment {
         return finalProduct;
     }
 
+    public void detectConvertAdd (int wordLength,int i,boolean letterFound,String[] words,HashMap<String,String> binaries,String tempWord,String changedWord) {
+        for (wordLength = words[i].length(); wordLength >= 8; wordLength-=8)
+        {
+            for (String key : binaries.keySet()) {
+                boolean check =words[i].contains(key.toString());
+                tempWord = words[i];
+                if (check) {
+                    changedWord = words[i].replace(key.toString(), binaries.get(key).toString());
+                    wordLength -= 8;
+                    letterFound = true;
+                }
+                if (letterFound) {
+                    detectConvertAdd(wordLength,i,letterFound,words,binaries,tempWord,changedWord);
+                    break;
+                } else {
+                    words[i] = tempWord;
+                }
+            }
+        }
+    }
 }
