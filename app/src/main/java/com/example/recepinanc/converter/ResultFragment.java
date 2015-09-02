@@ -122,8 +122,26 @@ public class ResultFragment extends Fragment {
                 int wordLength = words[i].length();
                 boolean letterFound = false;
 
-                //TODO : Fix this Loop
-                detectConvertAdd(wordLength,i,letterFound,words,binaries,tempWord,changedWord);
+
+                while(wordLength >= 8) {
+                    letterFound = false;
+                    Outer:
+                    for (String key : binaries.keySet()) {
+                        boolean check = words[i].contains(key.toString());
+                        tempWord = words[i];
+                        if (check) {
+                            changedWord = words[i].replace(key.toString(), binaries.get(key).toString());
+                            wordLength -= 8;
+                            letterFound = true;
+                        }
+                        if (letterFound) {
+                            words[i] = changedWord;
+                            break Outer;
+                        } else {
+                            words[i] = tempWord;
+                        }
+                    }
+                }
                 outputText.add(changedWord);
             } else {
                 outputText.add(words[i]);
@@ -153,23 +171,6 @@ public class ResultFragment extends Fragment {
     }
 
     public void detectConvertAdd (int wordLength,int i,boolean letterFound,String[] words,HashMap<String,String> binaries,String tempWord,String changedWord) {
-        for (wordLength = words[i].length(); wordLength >= 8; wordLength-=8)
-        {
-            for (String key : binaries.keySet()) {
-                boolean check =words[i].contains(key.toString());
-                tempWord = words[i];
-                if (check) {
-                    changedWord = words[i].replace(key.toString(), binaries.get(key).toString());
-                    wordLength -= 8;
-                    letterFound = true;
-                }
-                if (letterFound) {
-                    detectConvertAdd(wordLength,i,letterFound,words,binaries,tempWord,changedWord);
-                    break;
-                } else {
-                    words[i] = tempWord;
-                }
-            }
-        }
+
     }
 }
