@@ -1,0 +1,67 @@
+for (String key : binaries.keySet()) {
+                    boolean check =words[i].contains(key.toString());
+                    tempWord = words[i];
+                    if (check) {
+                        changedWord = words[i].replace(key.toString(), binaries.get(key).toString());
+                        wordLength -= 8;
+                    }
+                    if (wordLength < 8) {
+                        break;
+                    } else {
+                        words[i] = tempWord;
+                    }
+                }
+
+
+
+
+
+
+                Experiment
+
+				for (wordLength = words[i].length(); wordLength >= 8; wordLength-=8)
+                {
+                    for (String key : binaries.keySet()) {
+                        boolean check =words[i].contains(key.toString());
+                        tempWord = words[i];
+                        if (check) {
+                            changedWord = words[i].replace(key.toString(), binaries.get(key).toString());
+                            wordLength -= 8;
+                            letterFound = true;
+                        }
+                        if (letterFound) {
+                            break;
+                        } else {
+                            words[i] = tempWord;
+                        }
+                    }
+                }
+
+
+
+                binaries.put("01000001", "A");
+        binaries.put("01000010", "B");
+        binaries.put("01000011", "C");
+        binaries.put("01000100", "D");
+        binaries.put("01000101", "E");
+        binaries.put("01000110", "F");
+        binaries.put("01000111", "G");
+        binaries.put("01001000", "H");
+        binaries.put("01001001", "I");
+        binaries.put("01001010", "J");
+        binaries.put("01001011", "K");
+        binaries.put("01001011", "L");
+        binaries.put("01001011", "M");
+        binaries.put("01001011", "N");
+        binaries.put("01001011", "O");
+        binaries.put("01001011", "P");
+        binaries.put("01001011", "Q");
+        binaries.put("01001011", "R");
+        binaries.put("01001011", "S");
+        binaries.put("01001011", "T");
+        binaries.put("01001011", "U");
+        binaries.put("01001011", "V");
+        binaries.put("01001011", "W");
+        binaries.put("01001011", "X");
+        binaries.put("01001011", "Y");
+        binaries.put("01001011", "Z");

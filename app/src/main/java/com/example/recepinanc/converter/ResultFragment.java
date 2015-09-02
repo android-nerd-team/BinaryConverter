@@ -2,6 +2,7 @@ package com.example.recepinanc.converter;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -42,19 +43,15 @@ public class ResultFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Resources res = getResources();
+        String[] keys = res.getStringArray(R.array.keys);
+        String[] values = res.getStringArray(R.array.values);
 
         binaries = new HashMap<String, String>();
-        binaries.put("01000001", "A");
-        binaries.put("01000010", "B");
-        binaries.put("01000011", "C");
-        binaries.put("01000100", "D");
-        binaries.put("01000101", "E");
-        binaries.put("01000110", "F");
-        binaries.put("01000111", "G");
-        binaries.put("01001000", "H");
-        binaries.put("01001001", "I");
-        binaries.put("01001010", "J");
-        binaries.put("01001011", "K");
+        for (int i = 0; i< keys.length; i++) {
+            binaries.put(keys[i],values[i]);
+        }
+
 
         outputText = new ArrayList<>();
         words = new String[]{};
@@ -111,7 +108,7 @@ public class ResultFragment extends Fragment {
      */
     public String stringGenerator(String inputText) {
 
-            words = inputText.split(" ");
+        words = inputText.split(" ");
 
         //More complicated but more faster,elimates the irrelavant words
         //that doesn't contain enough digit
@@ -123,7 +120,7 @@ public class ResultFragment extends Fragment {
                 boolean letterFound = false;
 
 
-                while(wordLength >= 8) {
+                while (wordLength >= 8) {
                     letterFound = false;
                     Outer:
                     for (String key : binaries.keySet()) {
@@ -166,11 +163,11 @@ public class ResultFragment extends Fragment {
 
     public String printArrayList(ArrayList<String> outputText) {
         String finalProduct;
-        finalProduct = outputText.toString().replace("[","").replace("]","").replace(",","");
+        finalProduct = outputText.toString().replace("[", "").replace("]", "").replace(",", "");
         return finalProduct;
     }
 
-    public void detectConvertAdd (int wordLength,int i,boolean letterFound,String[] words,HashMap<String,String> binaries,String tempWord,String changedWord) {
+    public void detectConvertAdd(int wordLength, int i, boolean letterFound, String[] words, HashMap<String, String> binaries, String tempWord, String changedWord) {
 
     }
 }
